@@ -17,6 +17,7 @@ dependencies:
   redux_thunk: ^0.3.0
   http: ^0.12.0+4
 
+  awesome_dialog: ^0.1.3
   google_maps_flutter: ^0.5.25+2
 
 dev_dependencies:
