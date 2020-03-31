@@ -10,7 +10,7 @@ class HomeNetwork {
       Map decodedJson = await MakeRequest.get(DataType.national, client);
 
       if (decodedJson['error'])
-        return ResponseStatus(true, "Si è verificato un errore");
+        return ResponseStatus(false, "Si è verificato un errore");
 
       List<dynamic> jsonNationals = List.from(decodedJson['data']);
       List<National> nationals = jsonNationals
@@ -19,7 +19,7 @@ class HomeNetwork {
       return ResponseStatus(true, nationals);
     } catch (e) {
       print(e);
-      return ResponseStatus(true, "Si è verificato un errore");
+      return ResponseStatus(false, "Si è verificato un errore");
     }
   }
 
@@ -28,7 +28,7 @@ class HomeNetwork {
       dynamic decodedJson = await MakeRequest.get(DataType.regional, client);
 
       if (decodedJson['error'])
-        return ResponseStatus(true, "Si è verificato un errore");
+        return ResponseStatus(false, "Si è verificato un errore");
 
       List<dynamic> jsonRegional = List.from(decodedJson['data']);
       List<Regional> regional = jsonRegional

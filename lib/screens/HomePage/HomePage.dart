@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<bool> getTotalData(Store<AppState> store) async {
+  void getTotalData(Store<AppState> store) async {
     bool totalSuccess = true;
     int i = 0;
     http.Client client = http.Client();
@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
     List<ResponseStatus> list = await Future.wait([
       HomeNetwork.getNationalData(client),
       HomeNetwork.getRegionalData(client),
-      HomeNetwork.getProvincialData(client),
     ]);
 
     client.close();
@@ -40,7 +39,6 @@ class _HomePageState extends State<HomePage> {
       );
       store.dispatch(SaveData(dataGroup));
     }
-    return totalSuccess;
   }
 
   @override
@@ -50,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         title: Text("ITALIA 🇮🇹"),
       ),
       body: StoreConnector<AppState, AppState>(
-        onInit: (store) => store.dispatch(getTotalData),
+        onInit: (store) => getTotalData(store),
         converter: (store) => store.state,
         builder: (context, snapshot) {
           return ListView(
