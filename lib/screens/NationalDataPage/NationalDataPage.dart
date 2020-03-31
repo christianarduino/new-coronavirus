@@ -19,7 +19,6 @@ class NationalDataPage extends StatelessWidget {
       body: StoreConnector<AppState, List<National>>(
         converter: (store) => store.state.nationals,
         builder: (_, nationals) {
-          print(nationals.length);
           return ListView.builder(
             padding: EdgeInsets.symmetric(
               vertical: 20,

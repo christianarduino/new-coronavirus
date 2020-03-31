@@ -12,7 +12,10 @@ import 'package:http/http.dart' as http;
 import 'package:new_coronavirus/screens/HomePage/components/HomeCard.dart';
 import 'package:new_coronavirus/components/LabelWithData.dart';
 import 'package:new_coronavirus/screens/NationalDataPage/NationalDataPage.dart';
+import 'package:new_coronavirus/utils/Popup.dart';
+import 'package:new_coronavirus/utils/functions.dart';
 import 'package:redux/redux.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -190,6 +193,36 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
+                  SizedBox(height: 25),
+                  Text(
+                    "Ultimo aggiornamento: ${dateWithSlash(nationals[0].date)}",
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text("Fonte: "),
+                      GestureDetector(
+                        child: Text(
+                          "Protezione Civile",
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        onTap: () async {
+                          const url = 'https://github.com/pcm-dpc/COVID-19';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            Popup.error(
+                              context,
+                              "Non è stato possibile aprire il sito",
+                            );
+                          }
+                        },
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 5),
                 ],
               );
             },
