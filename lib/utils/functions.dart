@@ -12,3 +12,8 @@ List orderByDate(List list) {
   list.sort((a, b) => b.date.compareTo(a.date));
   return list;
 }
+
+List orderByDead(List list) {
+  list.sort((a, b) => b.dead.compareTo(a.dead));
+  return list;
+}

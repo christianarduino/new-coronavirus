@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:new_coronavirus/components/row_text.dart';
 import 'package:new_coronavirus/models/DataGroup.dart';
 import 'package:new_coronavirus/models/National.dart';
+import 'package:new_coronavirus/models/Regional.dart';
 import 'package:new_coronavirus/models/ResponseStatus.dart';
 import 'package:new_coronavirus/network/HomeNetwork/HomeNetwork.dart';
 import 'package:new_coronavirus/redux/actions/DataActions.dart';
@@ -69,6 +70,7 @@ class _HomePageState extends State<HomePage> {
                 );
 
               List<National> nationals = state.nationals;
+              List<Regional> regionalList = state.regional;
               National lastNational = nationals[0];
               return ListView(
                 padding: EdgeInsets.symmetric(
@@ -81,10 +83,15 @@ class _HomePageState extends State<HomePage> {
                     text2: "Di più",
                     onTextTap: () => print("prova"),
                   ),
-                  GridView.count(
+                  GridView(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    crossAxisCount: 2,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 10 / 8,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 5.0,
+                      mainAxisSpacing: 5.0,
+                    ),
                     children: <Widget>[
                       LabelWithData(
                         label: "Casi totali",
@@ -103,6 +110,108 @@ class _HomePageState extends State<HomePage> {
                         data: lastNational.recovered.toString(),
                       ),
                     ],
+                  ),
+                  RowText(
+                    text1: "Classifica regioni",
+                    text2: "Di più",
+                    onTextTap: () => print("prova"),
+                  ),
+                  SizedBox(height: 20),
+                  Builder(
+                    builder: (context) {
+                      List<Regional> regionalRange =
+                          regionalList.getRange(0, 3).toList();
+
+                      List<LinearGradient> gradients = [
+                        LinearGradient(
+                          colors: [
+                            Theme.of(context).accentColor,
+                            Color(0xFF599287),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomRight,
+                          stops: [0.4, 1],
+                        ),
+                        LinearGradient(
+                          colors: [
+                            Color(0xFFF0896F),
+                            Color(0xFFF19A82),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomRight,
+                          stops: [0.7, 1],
+                        ),
+                        LinearGradient(
+                          colors: [
+                            Color(0xFFF7D374),
+                            Color(0xFFEACF75),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomRight,
+                        ),
+                      ];
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: regionalRange
+                              .asMap()
+                              .map(
+                                (int i, Regional regional) {
+                                  return MapEntry(
+                                    i,
+                                    Container(
+                                      margin: EdgeInsets.only(right: 10),
+                                      height: 250,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        gradient: gradients[i],
+                                      ),
+                                      child: Stack(
+                                        children: <Widget>[
+                                          Image.asset(
+                                            "assets/line.png",
+                                            fit: BoxFit.cover,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 16.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: <Widget>[
+                                                Text(
+                                                  regional.name,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                                SizedBox(height: 5),
+                                                Text(
+                                                  regional.dead.toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 19,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )
+                              .values
+                              .toList(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               );
