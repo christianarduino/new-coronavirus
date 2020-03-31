@@ -10,7 +10,7 @@ import 'package:new_coronavirus/redux/actions/DataActions.dart';
 import 'package:new_coronavirus/redux/store/AppState.dart';
 import 'package:http/http.dart' as http;
 import 'package:new_coronavirus/screens/HomePage/components/HomeCard.dart';
-import 'package:new_coronavirus/screens/HomePage/components/LabelWithData.dart';
+import 'package:new_coronavirus/components/LabelWithData.dart';
 import 'package:new_coronavirus/screens/NationalDataPage/NationalDataPage.dart';
 import 'package:redux/redux.dart';
 
@@ -52,6 +52,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    const double sizeData = 30;
+    const double sizeLabel = 20;
     return Scaffold(
       appBar: AppBar(
         title: Text("ITALIA 🇮🇹"),
@@ -102,18 +104,26 @@ class _HomePageState extends State<HomePage> {
                       LabelWithData(
                         label: "Casi totali",
                         data: lastNational.totalCases.toString(),
+                        sizeData: sizeData,
+                        sizeLabel: sizeLabel,
                       ),
                       LabelWithData(
                         label: "Nuovi infetti",
                         data: lastNational.newInfected.toString(),
+                        sizeData: sizeData,
+                        sizeLabel: sizeLabel,
                       ),
                       LabelWithData(
                         label: "Deceduti",
                         data: lastNational.dead.toString(),
+                        sizeData: sizeData,
+                        sizeLabel: sizeLabel,
                       ),
                       LabelWithData(
                         label: "Guariti",
                         data: lastNational.recovered.toString(),
+                        sizeData: sizeData,
+                        sizeLabel: sizeLabel,
                       ),
                     ],
                   ),

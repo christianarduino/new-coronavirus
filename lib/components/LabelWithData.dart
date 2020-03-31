@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 class LabelWithData extends StatelessWidget {
   final String label;
+  final double sizeLabel;
   final String data;
+  final double sizeData;
 
-  const LabelWithData({Key key, this.label, this.data}) : super(key: key);
+  const LabelWithData(
+      {Key key, this.label, this.data, this.sizeLabel, this.sizeData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +18,14 @@ class LabelWithData extends StatelessWidget {
         Text(
           data,
           style: TextStyle(
-            fontSize: 30,
+            fontSize: sizeData,
           ),
         ),
         SizedBox(height: 2),
         Text(
           label,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: sizeLabel,
             color: Theme.of(context).accentColor,
           ),
         ),
