@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:new_coronavirus/components/row_text.dart';
+import 'package:new_coronavirus/components/RowText.dart';
 import 'package:new_coronavirus/models/DataGroup.dart';
 import 'package:new_coronavirus/models/National.dart';
 import 'package:new_coronavirus/models/Regional.dart';
@@ -127,10 +127,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  RowText(
-                    text1: "Classifica regioni",
-                    text2: "Di più",
-                    onTextTap: () => print("prova"),
+                  Tooltip(
+                    message: "In ordine decrescente per numero di deceduti",
+                    child: RowText(
+                        text1: "Classifica regioni",
+                        text2: "Di più",
+                        onTextTap: () => print("Regional Page")),
                   ),
                   SizedBox(height: 25),
                   Builder(

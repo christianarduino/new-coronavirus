@@ -1,4 +1,4 @@
-import 'package:new_coronavirus/api/make_request.dart';
+import 'package:new_coronavirus/api/MakeRequest.dart';
 import 'package:new_coronavirus/models/National.dart';
 import 'package:new_coronavirus/models/Regional.dart';
 import 'package:new_coronavirus/models/ResponseStatus.dart';

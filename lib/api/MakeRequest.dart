@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'errors.dart';
+import 'Errors.dart';
 import 'dart:io' show SocketException, HttpException;
 import 'package:http/http.dart' as http;
 
