@@ -35,8 +35,6 @@ class HomeNetwork {
           .map<Regional>((json) => Regional.fromJson(json))
           .toList();
 
-      print(regional[0].swab);
-
       return ResponseStatus(true, regional);
     } catch (e) {
       return ResponseStatus(false, "Si è verificato un errore");
