@@ -10,6 +10,13 @@ class NationalDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const TextStyle titleStyle = TextStyle(
+      fontSize: 20,
+    );
+    const TextStyle dataStyle = TextStyle(
+      fontSize: 18,
+    );
+
     Map<String, double> dataMap = {
       "Infetti": national.totalInfected.toDouble(),
       "Guariti": national.recovered.toDouble(),
@@ -27,6 +34,67 @@ class NationalDetailPage extends StatelessWidget {
         ),
         children: <Widget>[
           PieChart(dataMap: dataMap),
+          SizedBox(height: 20),
+          ListTile(
+            title: Text(
+              "Totali casi positivi",
+              style: titleStyle,
+            ),
+            trailing: Text(
+              national.totalCases.toString(),
+              style: dataStyle,
+            ),
+          ),
+          ListTile(
+            title: Text(
+              "Infetti attuali",
+              style: titleStyle,
+            ),
+            trailing: Text(
+              national.totalInfected.toString(),
+              style: dataStyle,
+            ),
+          ),
+          ListTile(
+            title: Text(
+              "Nuovi infetti",
+              style: titleStyle,
+            ),
+            trailing: Text(
+              national.newInfected.toString(),
+              style: dataStyle,
+            ),
+          ),
+          ListTile(
+            title: Text(
+              "Deceduti",
+              style: titleStyle,
+            ),
+            trailing: Text(
+              national.dead.toString(),
+              style: dataStyle,
+            ),
+          ),
+          ListTile(
+            title: Text(
+              "Guariti",
+              style: titleStyle,
+            ),
+            trailing: Text(
+              national.recovered.toString(),
+              style: dataStyle,
+            ),
+          ),
+          ListTile(
+            title: Text(
+              "Tamponi effettuati",
+              style: titleStyle,
+            ),
+            trailing: Text(
+              national.swab.toString(),
+              style: dataStyle,
+            ),
+          ),
         ],
       ),
     );

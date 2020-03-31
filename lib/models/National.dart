@@ -20,6 +20,6 @@ class National {
         dead = json['deceduti'],
         totalCases = json['totale_casi'],
         swab = json['tamponi'],
-        totalInfected = json['totale_ospedalizzati'],
+        totalInfected = json['totale_positivi'],
         newInfected = json['nuovi_positivi'];
 }
