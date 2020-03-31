@@ -7,3 +7,8 @@ String dateWithSlash(DateTime date) {
       "/" +
       date.year.toString();
 }
+
+List orderByDate(List list) {
+  list.sort((a, b) => b.date.compareTo(a.date));
+  return list;
+}
