@@ -15,7 +15,7 @@ class National {
   );
 
   National.fromJson(Map<String, dynamic> json)
-      : date = dateWithSlash(json['data']),
+      : date = dateWithSlash(DateTime.parse(json['data'])),
         recovered = json['dimessi_guariti'],
         dead = json['deceduti'],
         totalCases = json['totale_casi'],

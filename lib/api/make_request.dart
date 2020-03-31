@@ -14,12 +14,12 @@ class MakeRequest {
   static final String provincialData =
       "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province-latest.json";
 
-  static Map<String, dynamic> headers = {
+  static Map<String, String> headers = {
     "Content-Type": "application/json",
-    "Accept": "application/json"
   };
 
-  static Future get(DataType type, [http.Client client]) async {
+  static Future<Map<String, dynamic>> get(DataType type,
+      [http.Client client]) async {
     try {
       http.Response response;
       if (client == null) {
@@ -35,7 +35,13 @@ class MakeRequest {
       }
 
       final responseJson = await jsonDecode(response.body);
-      return responseJson;
+
+      if (response.statusCode < 300) {
+        //if success
+        return {'error': false, 'data': responseJson};
+      } else {
+        return {'error': false};
+      }
     } on SocketException {
       throw NoInternetException(
         "Nessuna connesione internet.\nAssicurati di avere il wifi o la connessione dati attiva",

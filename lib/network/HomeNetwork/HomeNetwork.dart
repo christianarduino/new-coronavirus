@@ -1,19 +1,43 @@
 import 'package:new_coronavirus/api/make_request.dart';
+import 'package:new_coronavirus/models/National.dart';
+import 'package:new_coronavirus/models/Regional.dart';
 import 'package:new_coronavirus/models/ResponseStatus.dart';
 import 'package:http/http.dart' as http;
 
 class HomeNetwork {
   static Future<ResponseStatus> getNationalData([http.Client client]) async {
     try {
-      dynamic decodedJson = await MakeRequest.get(DataType.national, client);
+      Map decodedJson = await MakeRequest.get(DataType.national, client);
+
+      if (decodedJson['error'])
+        return ResponseStatus(true, "Si è verificato un errore");
+
+      List<dynamic> jsonNationals = List.from(decodedJson['data']);
+      List<National> nationals = jsonNationals
+          .map<National>((json) => National.fromJson(json))
+          .toList();
+      return ResponseStatus(true, nationals);
     } catch (e) {
-      return ResponseStatus(false, "Si è verificato un errore");
+      print(e);
+      return ResponseStatus(true, "Si è verificato un errore");
     }
   }
 
   static Future<ResponseStatus> getRegionalData([http.Client client]) async {
     try {
       dynamic decodedJson = await MakeRequest.get(DataType.regional, client);
+
+      if (decodedJson['error'])
+        return ResponseStatus(true, "Si è verificato un errore");
+
+      List<dynamic> jsonRegional = List.from(decodedJson['data']);
+      List<Regional> regional = jsonRegional
+          .map<Regional>((json) => Regional.fromJson(json))
+          .toList();
+
+      print(regional[0].swab);
+
+      return ResponseStatus(true, regional);
     } catch (e) {
       return ResponseStatus(false, "Si è verificato un errore");
     }
