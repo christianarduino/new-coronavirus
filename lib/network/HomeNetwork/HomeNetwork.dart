@@ -15,7 +15,11 @@ class HomeNetwork {
       List<dynamic> jsonNationals = List.from(decodedJson['data']);
       List<National> nationals = jsonNationals
           .map<National>((json) => National.fromJson(json))
+          .toList()
+          .reversed
           .toList();
+
+      print(nationals[0].dead);
       return ResponseStatus(true, nationals);
     } catch (e) {
       print(e);

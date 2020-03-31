@@ -1,7 +1,7 @@
 import 'package:new_coronavirus/utils/functions.dart';
 
 class National {
-  final String date;
+  DateTime date;
   final int recovered, dead, totalCases, swab, totalInfected, newInfected;
 
   National(
@@ -15,7 +15,7 @@ class National {
   );
 
   National.fromJson(Map<String, dynamic> json)
-      : date = dateWithSlash(DateTime.parse(json['data'])),
+      : date = DateTime.parse(json['data']),
         recovered = json['dimessi_guariti'],
         dead = json['deceduti'],
         totalCases = json['totale_casi'],

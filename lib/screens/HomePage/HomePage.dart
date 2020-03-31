@@ -9,7 +9,9 @@ import 'package:new_coronavirus/network/HomeNetwork/HomeNetwork.dart';
 import 'package:new_coronavirus/redux/actions/DataActions.dart';
 import 'package:new_coronavirus/redux/store/AppState.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_coronavirus/screens/HomePage/components/HomeCard.dart';
 import 'package:new_coronavirus/screens/HomePage/components/LabelWithData.dart';
+import 'package:new_coronavirus/screens/NationalDataPage/NationalDataPage.dart';
 import 'package:redux/redux.dart';
 
 class HomePage extends StatefulWidget {
@@ -81,7 +83,11 @@ class _HomePageState extends State<HomePage> {
                   RowText(
                     text1: "Andamento nazionale",
                     text2: "Di più",
-                    onTextTap: () => print("prova"),
+                    onTextTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => NationalDataPage(),
+                      ),
+                    ),
                   ),
                   GridView(
                     physics: NeverScrollableScrollPhysics(),
@@ -116,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                     text2: "Di più",
                     onTextTap: () => print("prova"),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 25),
                   Builder(
                     builder: (context) {
                       List<Regional> regionalRange =
@@ -159,50 +165,9 @@ class _HomePageState extends State<HomePage> {
                                 (int i, Regional regional) {
                                   return MapEntry(
                                     i,
-                                    Container(
-                                      margin: EdgeInsets.only(right: 10),
-                                      height: 250,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        gradient: gradients[i],
-                                      ),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Image.asset(
-                                            "assets/line.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 16.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: <Widget>[
-                                                Text(
-                                                  regional.name,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 5),
-                                                Text(
-                                                  regional.dead.toString(),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 19,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                    HomeCard(
+                                      gradient: gradients[i],
+                                      regional: regional,
                                     ),
                                   );
                                 },

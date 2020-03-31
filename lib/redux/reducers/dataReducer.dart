@@ -7,7 +7,7 @@ AppState dataReducer(AppState state, dynamic action) {
   switch (action.type) {
     case DataActions.Save:
       DataGroup dataGroup = action.payload as DataGroup;
-      state.nationals = orderByDate(dataGroup.national);
+      state.nationals = orderByDate(dataGroup.national, false);
       state.regional = orderByDead(dataGroup.regional);
       return state;
     default:

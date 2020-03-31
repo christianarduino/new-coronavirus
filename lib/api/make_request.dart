@@ -8,7 +8,7 @@ enum DataType { national, regional, provincial }
 
 class MakeRequest {
   static final String nationalData =
-      "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale-latest.json";
+      "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
   static final String regionalData =
       "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json";
   static final String provincialData =
