@@ -17,7 +17,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void getTotalData(Store<AppState> store) async {
+  Future<bool> futureSuccess;
+
+  Future<bool> getTotalData(Store<AppState> store) async {
     bool totalSuccess = true;
     int i = 0;
     http.Client client = http.Client();
@@ -41,6 +43,8 @@ class _HomePageState extends State<HomePage> {
       );
       store.dispatch(SaveData(dataGroup));
     }
+
+    return totalSuccess;
   }
 
   @override
@@ -50,45 +54,59 @@ class _HomePageState extends State<HomePage> {
         title: Text("ITALIA 🇮🇹"),
       ),
       body: StoreConnector<AppState, AppState>(
-        onInit: (store) => getTotalData(store),
+        onInit: (store) => futureSuccess = getTotalData(store),
         converter: (store) => store.state,
         builder: (context, state) {
-          List<National> nationals = state.nationals;
-          National lastNational = nationals[0];
-          return ListView(
-            padding: EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 25,
-            ),
-            children: <Widget>[
-              RowText(
-                text1: "Andamento nazionale",
-                text2: "Di più",
-                onTextTap: () => print("prova"),
-              ),
-              GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
+          return FutureBuilder(
+            future: futureSuccess,
+            builder: (_, AsyncSnapshot<bool> snapshot) {
+              if (snapshot.connectionState != ConnectionState.done)
+                return Center(child: CircularProgressIndicator());
+
+              if (!snapshot.data)
+                return Center(
+                  child: Text("Si è verificato un errore"),
+                );
+
+              List<National> nationals = state.nationals;
+              National lastNational = nationals[0];
+              return ListView(
+                padding: EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 25,
+                ),
                 children: <Widget>[
-                  LabelWithData(
-                    label: "Casi totali",
-                    data: lastNational.totalCases.toString(),
+                  RowText(
+                    text1: "Andamento nazionale",
+                    text2: "Di più",
+                    onTextTap: () => print("prova"),
                   ),
-                  LabelWithData(
-                    label: "Nuovi infetti",
-                    data: lastNational.newInfected.toString(),
-                  ),
-                  LabelWithData(
-                    label: "Deceduti",
-                    data: lastNational.dead.toString(),
-                  ),
-                  LabelWithData(
-                    label: "Guariti",
-                    data: lastNational.recovered.toString(),
+                  GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    crossAxisCount: 2,
+                    children: <Widget>[
+                      LabelWithData(
+                        label: "Casi totali",
+                        data: lastNational.totalCases.toString(),
+                      ),
+                      LabelWithData(
+                        label: "Nuovi infetti",
+                        data: lastNational.newInfected.toString(),
+                      ),
+                      LabelWithData(
+                        label: "Deceduti",
+                        data: lastNational.dead.toString(),
+                      ),
+                      LabelWithData(
+                        label: "Guariti",
+                        data: lastNational.recovered.toString(),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
+              );
+            },
           );
         },
       ),
