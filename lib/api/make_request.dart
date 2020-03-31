@@ -19,12 +19,21 @@ class MakeRequest {
     "Accept": "application/json"
   };
 
-  static Future get(DataType type) async {
+  static Future get(DataType type, [http.Client client]) async {
     try {
-      http.Response response = await http.get(
-        getUrl(type),
-        headers: headers,
-      );
+      http.Response response;
+      if (client == null) {
+        response = await http.get(
+          getUrl(type),
+          headers: headers,
+        );
+      } else {
+        response = await client.get(
+          getUrl(type),
+          headers: headers,
+        );
+      }
+
       final responseJson = await jsonDecode(response.body);
       return responseJson;
     } on SocketException {
