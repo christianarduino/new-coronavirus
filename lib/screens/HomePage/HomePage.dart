@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
       HomeNetwork.getNationalData(client),
       HomeNetwork.getRegionalData(false, client),
       HomeNetwork.getRegionalData(true, client),
+      HomeNetwork.getProvincialData(client),
     ]);
 
     client.close();
@@ -49,6 +50,7 @@ class _HomePageState extends State<HomePage> {
         national: list[0].data,
         regional: list[1].data,
         regionalLatest: list[2].data,
+        provincial: list[3].data,
       );
       store.dispatch(SaveData(dataGroup));
     }

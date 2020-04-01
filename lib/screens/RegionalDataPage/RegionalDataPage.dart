@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:new_coronavirus/components/CardWithData.dart';
 import 'package:new_coronavirus/models/Regional.dart';
 import 'package:new_coronavirus/redux/store/AppState.dart';
+import 'package:new_coronavirus/screens/ProvincialDataPage/ProvincialDataPage.dart';
 import 'package:new_coronavirus/utils/functions.dart';
 
 class RegionalDataPage extends StatefulWidget {
@@ -48,8 +49,12 @@ class _RegionalDataPageState extends State<RegionalDataPage> {
                       if (value.isNotEmpty) {
                         setState(() {
                           renderList = regionalLatest
-                              .where((Regional regional) =>
-                                  RegExp(value).hasMatch(regional.name))
+                              .where(
+                                (Regional regional) =>
+                                    RegExp(value.toLowerCase()).hasMatch(
+                                  regional.name.toLowerCase(),
+                                ),
+                              )
                               .toList();
                         });
                       } else {
@@ -75,6 +80,13 @@ class _RegionalDataPageState extends State<RegionalDataPage> {
                         newInfected: regional.newInfected.toString(),
                         title: "${regional.name} - In data " +
                             dateWithSlash(regional.date),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => ProvincialDataPage(
+                              regional: regional,
+                            ),
+                          ),
+                        ),
                       );
                     },
                   ),

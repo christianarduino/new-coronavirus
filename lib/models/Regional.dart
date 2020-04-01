@@ -9,6 +9,6 @@ class Regional extends National {
       : regionCode = json['codice_regione'],
         name = json['denominazione_regione'],
         latitude = json['lat'],
-        longitude = json['lon'],
+        longitude = json['long'],
         super.fromJson(json);
 }
