@@ -17,6 +17,7 @@ class _RegionalDataPageState extends State<RegionalDataPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("Dati regionali"),
       ),

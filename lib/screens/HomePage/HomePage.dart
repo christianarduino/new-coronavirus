@@ -61,6 +61,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    int count =
+        MediaQuery.of(context).orientation == Orientation.landscape ? 4 : 2;
     const double sizeData = 30;
     const double sizeLabel = 20;
     return Scaffold(
@@ -105,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 10 / 8,
-                      crossAxisCount: 2,
+                      crossAxisCount: count,
                       crossAxisSpacing: 5.0,
                       mainAxisSpacing: 5.0,
                     ),
@@ -212,32 +214,51 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   SizedBox(height: 25),
-                  Text(
-                    "Ultimo aggiornamento: ${dateWithSlash(nationals[0].date)}",
-                  ),
                   Row(
                     children: <Widget>[
-                      Text("Fonte: "),
-                      GestureDetector(
-                        child: Text(
-                          "Protezione Civile",
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Theme.of(context).accentColor,
-                          ),
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Ultimo aggiornamento: ${dateWithSlash(nationals[0].date)}",
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text("Fonte: "),
+                                GestureDetector(
+                                  child: Text(
+                                    "Protezione Civile",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                  ),
+                                  onTap: () async {
+                                    const url =
+                                        'https://github.com/pcm-dpc/COVID-19';
+                                    if (await canLaunch(url)) {
+                                      await launch(url);
+                                    } else {
+                                      Popup.error(
+                                        context,
+                                        "Non è stato possibile aprire il sito",
+                                      );
+                                    }
+                                  },
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                        onTap: () async {
-                          const url = 'https://github.com/pcm-dpc/COVID-19';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          } else {
-                            Popup.error(
-                              context,
-                              "Non è stato possibile aprire il sito",
-                            );
-                          }
-                        },
-                      )
+                      ),
+                      Expanded(
+                        child: Image.asset(
+                          "assets/logo.png",
+                          height: 60,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 5),
