@@ -33,7 +33,8 @@ class _HomePageState extends State<HomePage> {
 
     List<ResponseStatus> list = await Future.wait([
       HomeNetwork.getNationalData(client),
-      HomeNetwork.getRegionalData(client),
+      HomeNetwork.getRegionalData(false, client),
+      HomeNetwork.getRegionalData(true, client),
     ]);
 
     client.close();
@@ -47,6 +48,7 @@ class _HomePageState extends State<HomePage> {
       DataGroup dataGroup = DataGroup(
         national: list[0].data,
         regional: list[1].data,
+        regionalLatest: list[2].data,
       );
       store.dispatch(SaveData(dataGroup));
     }
@@ -78,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 );
 
               List<National> nationals = state.nationals;
-              List<Regional> regionalList = state.regional;
+              List<Regional> regionalList = state.regionalLatest;
               National lastNational = nationals[0];
               return ListView(
                 padding: EdgeInsets.symmetric(

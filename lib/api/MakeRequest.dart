@@ -4,13 +4,15 @@ import 'Errors.dart';
 import 'dart:io' show SocketException, HttpException;
 import 'package:http/http.dart' as http;
 
-enum DataType { national, regional, provincial }
+enum DataType { national, regionalLatest, regional, provincial }
 
 class MakeRequest {
   static final String nationalData =
       "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
-  static final String regionalData =
+  static final String regionalDataLatest =
       "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json";
+  static final String regional =
+      "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json";
   static final String provincialData =
       "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province-latest.json";
 
@@ -64,8 +66,10 @@ class MakeRequest {
     switch (type) {
       case DataType.national:
         return nationalData;
+      case DataType.regionalLatest:
+        return regionalDataLatest;
       case DataType.regional:
-        return regionalData;
+        return regional;
       case DataType.provincial:
         return provincialData;
       default:

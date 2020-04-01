@@ -3,7 +3,8 @@ import 'package:new_coronavirus/models/Regional.dart';
 
 class DataGroup {
   final List<National> national;
-  final List<Regional> regional;
+  final Map<String, List<Regional>> regional;
+  final List<Regional> regionalLatest;
 
-  DataGroup({this.national, this.regional});
+  DataGroup({this.national, this.regional, this.regionalLatest});
 }

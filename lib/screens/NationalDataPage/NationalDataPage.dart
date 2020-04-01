@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:new_coronavirus/components/CardWithData.dart';
 import 'package:new_coronavirus/models/National.dart';
 import 'package:new_coronavirus/redux/store/AppState.dart';
 import 'package:new_coronavirus/components/LabelWithData.dart';
@@ -27,63 +28,13 @@ class NationalDataPage extends StatelessWidget {
             itemCount: nationals.length,
             itemBuilder: (_, int i) {
               National national = nationals[i];
-              return GestureDetector(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  margin: EdgeInsets.only(bottom: 20),
-                  elevation: 7,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10.0,
-                          top: 10.0,
-                        ),
-                        child: Text(
-                          "In data " + dateWithSlash(national.date),
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(17.0),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: LabelWithData(
-                                label: "Nuovi infetti",
-                                data: national.newInfected.toString(),
-                                sizeLabel: sizeLabel,
-                                sizeData: sizeData,
-                              ),
-                            ),
-                            Expanded(
-                              child: LabelWithData(
-                                label: "Deceduti",
-                                data: national.dead.toString(),
-                                sizeLabel: sizeLabel,
-                                sizeData: sizeData,
-                              ),
-                            ),
-                            Expanded(
-                              child: LabelWithData(
-                                label: "Guariti",
-                                data: national.recovered.toString(),
-                                sizeLabel: sizeLabel,
-                                sizeData: sizeData,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              return CardWithData(
+                sizeLabel: 17,
+                sizeData: 20,
+                dead: national.dead.toString(),
+                recovered: national.recovered.toString(),
+                newInfected: national.newInfected.toString(),
+                title: "In data " + dateWithSlash(national.date),
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => NationalDetailPage(

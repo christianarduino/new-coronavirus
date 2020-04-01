@@ -15,11 +15,11 @@ class HomeNetwork {
       List<dynamic> jsonNationals = List.from(decodedJson['data']);
       List<National> nationals = jsonNationals
           .map<National>((json) => National.fromJson(json))
-          .toList()
-          .reversed
           .toList();
 
-      print(nationals[0].dead);
+      nationals.sort(
+        (National a, National b) => b.dead.compareTo(a.dead),
+      );
       return ResponseStatus(true, nationals);
     } catch (e) {
       print(e);
@@ -27,19 +27,39 @@ class HomeNetwork {
     }
   }
 
-  static Future<ResponseStatus> getRegionalData([http.Client client]) async {
+  static Future<ResponseStatus> getRegionalData(bool latest,
+      [http.Client client]) async {
     try {
-      dynamic decodedJson = await MakeRequest.get(DataType.regional, client);
+      dynamic decodedJson = await MakeRequest.get(
+          latest ? DataType.regionalLatest : DataType.regional, client);
 
       if (decodedJson['error'])
         return ResponseStatus(false, "Si è verificato un errore");
 
       List<dynamic> jsonRegional = List.from(decodedJson['data']);
-      List<Regional> regional = jsonRegional
-          .map<Regional>((json) => Regional.fromJson(json))
-          .toList();
 
-      return ResponseStatus(true, regional);
+      if (latest) {
+        List<dynamic> jsonRegional = List.from(decodedJson['data']);
+        List<Regional> regionalList = jsonRegional
+            .map<Regional>((json) => Regional.fromJson(json))
+            .toList();
+        return ResponseStatus(true, regionalList);
+      } else {
+        Map<String, List<Regional>> regionalMap = {};
+        jsonRegional.forEach((item) {
+          Regional regional = Regional.fromJson(item);
+          if (!regionalMap.containsKey(regional.name))
+            regionalMap[regional.name] = <Regional>[];
+
+          regionalMap[regional.name].add(regional);
+        });
+
+        regionalMap.forEach((String key, List<Regional> regional) {
+          regional.sort((Regional a, Regional b) => b.date.compareTo(a.date));
+        });
+
+        return ResponseStatus(true, regionalMap);
+      }
     } catch (e) {
       return ResponseStatus(false, "Si è verificato un errore");
     }
