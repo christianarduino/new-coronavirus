@@ -1,4 +1,3 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:new_coronavirus/models/National.dart';
 import 'package:new_coronavirus/models/Regional.dart';
 

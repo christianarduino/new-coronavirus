@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -23,7 +21,6 @@ class ProvincialDataPage extends StatefulWidget {
 
 class _ProvincialDataPageState extends State<ProvincialDataPage> {
   Regional regional;
-  Completer<GoogleMapController> _controller = Completer();
   CameraPosition initialPosition;
   List<Provincial> provincials = [];
   Map<String, double> provincialPieData = {};

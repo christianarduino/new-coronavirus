@@ -17,13 +17,6 @@ class NationalDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle titleStyle = TextStyle(
-      fontSize: 20,
-    );
-    const TextStyle dataStyle = TextStyle(
-      fontSize: 18,
-    );
-
     Map<String, double> dataMap = {
       "Infetti": national.totalInfected.toDouble(),
       "Guariti": national.recovered.toDouble(),
@@ -40,29 +33,6 @@ class NationalDetailPage extends StatelessWidget {
           horizontal: 25,
         ),
         children: <Widget>[
-          TitleDivider(label: "Dati generali"),
-          PieChart(dataMap: dataMap),
-          SizedBox(height: 20),
-          TileData(
-            label: "Totali casi positivi",
-            data: national.totalCases,
-          ),
-          TileData(
-            label: "Infetti attuali",
-            data: national.totalInfected,
-          ),
-          TileData(
-            label: "Deceduti",
-            data: national.dead,
-          ),
-          TileData(
-            label: "Guariti",
-            data: national.recovered,
-          ),
-          TileData(
-            label: "Tamponi effettuati",
-            data: national.swab,
-          ),
           Builder(
             builder: (context) {
               if (prevData == null) return SizedBox.shrink();
@@ -92,6 +62,29 @@ class NationalDetailPage extends StatelessWidget {
                 ],
               );
             },
+          ),
+          TitleDivider(label: "Dati generali"),
+          PieChart(dataMap: dataMap),
+          SizedBox(height: 20),
+          TileData(
+            label: "Totali casi positivi",
+            data: national.totalCases,
+          ),
+          TileData(
+            label: "Infetti attuali",
+            data: national.totalInfected,
+          ),
+          TileData(
+            label: "Deceduti",
+            data: national.dead,
+          ),
+          TileData(
+            label: "Guariti",
+            data: national.recovered,
+          ),
+          TileData(
+            label: "Tamponi effettuati",
+            data: national.swab,
           ),
         ],
       ),

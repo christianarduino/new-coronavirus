@@ -2,18 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:new_coronavirus/components/CardWithData.dart';
 import 'package:new_coronavirus/models/National.dart';
-import 'package:new_coronavirus/models/ResponseStatus.dart';
 import 'package:new_coronavirus/redux/store/AppState.dart';
-import 'package:new_coronavirus/components/LabelWithData.dart';
 import 'package:new_coronavirus/screens/NationalDetailPage/NationalDetailPage.dart';
 import 'package:new_coronavirus/utils/functions.dart';
 
 class NationalDataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const double sizeLabel = 17;
-    const double sizeData = 20;
-
     National getPrevData(List<National> nationals, int i) {
       try {
         return nationals[i + 1];

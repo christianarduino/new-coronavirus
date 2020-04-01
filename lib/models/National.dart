@@ -1,5 +1,3 @@
-import 'package:new_coronavirus/utils/functions.dart';
-
 class National {
   DateTime date;
   final int recovered, dead, totalCases, swab, totalInfected, newInfected;
