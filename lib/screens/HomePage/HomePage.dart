@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:new_coronavirus/screens/HomePage/components/HomeCard.dart';
 import 'package:new_coronavirus/components/LabelWithData.dart';
 import 'package:new_coronavirus/screens/NationalDataPage/NationalDataPage.dart';
+import 'package:new_coronavirus/screens/RegionalDataPage/RegionalDataPage.dart';
 import 'package:new_coronavirus/utils/Popup.dart';
 import 'package:new_coronavirus/utils/functions.dart';
 import 'package:redux/redux.dart';
@@ -133,9 +134,14 @@ class _HomePageState extends State<HomePage> {
                   Tooltip(
                     message: "In ordine decrescente per numero di deceduti",
                     child: RowText(
-                        text1: "Classifica regioni",
-                        text2: "Di più",
-                        onTextTap: () => print("Regional Page")),
+                      text1: "Classifica regioni",
+                      text2: "Di più",
+                      onTextTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => RegionalDataPage(),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 25),
                   Builder(
