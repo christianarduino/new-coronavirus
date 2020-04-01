@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:new_coronavirus/components/ColumnBuilder.dart';
@@ -9,6 +8,7 @@ import 'package:new_coronavirus/models/Provincial.dart';
 import 'package:new_coronavirus/models/Regional.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:new_coronavirus/redux/store/AppState.dart';
+import 'package:new_coronavirus/screens/MapFullscreenPage/MapFullscreenPage.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class ProvincialDataPage extends StatefulWidget {
@@ -57,7 +57,11 @@ class _ProvincialDataPageState extends State<ProvincialDataPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.map),
-            onPressed: () => print("Maps full screen"),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => MapFullscreenPage(
+                regional: widget.regional,
+              ),
+            )),
           ),
         ],
       ),
