@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:new_coronavirus/components/ColumnBuilder.dart';
+import 'package:new_coronavirus/components/TitleDivider.dart';
 import 'package:new_coronavirus/models/Provincial.dart';
 import 'package:new_coronavirus/models/Regional.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -87,13 +88,7 @@ class _ProvincialDataPageState extends State<ProvincialDataPage> {
           return ListView(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
             children: <Widget>[
-              Text(
-                "Dati generali",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Theme.of(context).accentColor,
-                ),
-              ),
+              TitleDivider(label: "Dati generali"),
               PieChart(
                 dataMap: regionalPieData,
               ),
@@ -158,13 +153,7 @@ class _ProvincialDataPageState extends State<ProvincialDataPage> {
                 ),
               ),
               SizedBox(height: 20),
-              Text(
-                "Dati per provincia",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Theme.of(context).accentColor,
-                ),
-              ),
+              TitleDivider(label: "Dati per provincia"),
               PieChart(
                 dataMap: provincialPieData,
               ),

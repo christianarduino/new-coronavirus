@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:new_coronavirus/components/CardWithData.dart';
 import 'package:new_coronavirus/models/National.dart';
+import 'package:new_coronavirus/models/ResponseStatus.dart';
 import 'package:new_coronavirus/redux/store/AppState.dart';
 import 'package:new_coronavirus/components/LabelWithData.dart';
 import 'package:new_coronavirus/screens/NationalDetailPage/NationalDetailPage.dart';
@@ -12,6 +13,14 @@ class NationalDataPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const double sizeLabel = 17;
     const double sizeData = 20;
+
+    National getPrevData(List<National> nationals, int i) {
+      try {
+        return nationals[i + 1];
+      } catch (e) {
+        return null;
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -39,6 +48,7 @@ class NationalDataPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => NationalDetailPage(
                       national: national,
+                      prevData: getPrevData(nationals, i),
                     ),
                   ),
                 ),

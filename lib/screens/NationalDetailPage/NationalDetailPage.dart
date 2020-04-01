@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:new_coronavirus/components/TileData.dart';
+import 'package:new_coronavirus/components/TitleDivider.dart';
 import 'package:new_coronavirus/models/National.dart';
 import 'package:new_coronavirus/utils/functions.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class NationalDetailPage extends StatelessWidget {
   final National national;
+  final National prevData;
 
-  const NationalDetailPage({Key key, this.national}) : super(key: key);
+  const NationalDetailPage({
+    Key key,
+    this.national,
+    this.prevData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,67 +40,58 @@ class NationalDetailPage extends StatelessWidget {
           horizontal: 25,
         ),
         children: <Widget>[
+          TitleDivider(label: "Dati generali"),
           PieChart(dataMap: dataMap),
           SizedBox(height: 20),
-          ListTile(
-            title: Text(
-              "Totali casi positivi",
-              style: titleStyle,
-            ),
-            trailing: Text(
-              national.totalCases.toString(),
-              style: dataStyle,
-            ),
+          TileData(
+            label: "Totali casi positivi",
+            data: national.totalCases,
           ),
-          ListTile(
-            title: Text(
-              "Infetti attuali",
-              style: titleStyle,
-            ),
-            trailing: Text(
-              national.totalInfected.toString(),
-              style: dataStyle,
-            ),
+          TileData(
+            label: "Infetti attuali",
+            data: national.totalInfected,
           ),
-          ListTile(
-            title: Text(
-              "Nuovi infetti",
-              style: titleStyle,
-            ),
-            trailing: Text(
-              national.newInfected.toString(),
-              style: dataStyle,
-            ),
+          TileData(
+            label: "Deceduti",
+            data: national.dead,
           ),
-          ListTile(
-            title: Text(
-              "Deceduti",
-              style: titleStyle,
-            ),
-            trailing: Text(
-              national.dead.toString(),
-              style: dataStyle,
-            ),
+          TileData(
+            label: "Guariti",
+            data: national.recovered,
           ),
-          ListTile(
-            title: Text(
-              "Guariti",
-              style: titleStyle,
-            ),
-            trailing: Text(
-              national.recovered.toString(),
-              style: dataStyle,
-            ),
+          TileData(
+            label: "Tamponi effettuati",
+            data: national.swab,
           ),
-          ListTile(
-            title: Text(
-              "Tamponi effettuati",
-              style: titleStyle,
-            ),
-            trailing: Text(
-              national.swab.toString(),
-              style: dataStyle,
-            ),
+          Builder(
+            builder: (context) {
+              if (prevData == null) return SizedBox.shrink();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 10),
+                  TitleDivider(label: "Rispetto a ieri"),
+                  TileData(
+                    label: "Nuovi infetti",
+                    data: national.newInfected,
+                  ),
+                  TileData(
+                    label: "Nuovi deceduti",
+                    data: national.dead - prevData.dead,
+                  ),
+                  TileData(
+                    label: "Nuovi guariti",
+                    data: national.recovered - prevData.recovered,
+                  ),
+                  TileData(
+                    label: "Tamponi effettuati",
+                    data: national.swab - prevData.swab,
+                  ),
+                  SizedBox(height: 10),
+                ],
+              );
+            },
           ),
         ],
       ),
