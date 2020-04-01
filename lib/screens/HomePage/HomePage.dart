@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:new_coronavirus/screens/HomePage/components/HomeCard.dart';
 import 'package:new_coronavirus/components/LabelWithData.dart';
 import 'package:new_coronavirus/screens/NationalDataPage/NationalDataPage.dart';
+import 'package:new_coronavirus/screens/ProvincialDataPage/ProvincialDataPage.dart';
 import 'package:new_coronavirus/screens/RegionalDataPage/RegionalDataPage.dart';
 import 'package:new_coronavirus/utils/Popup.dart';
 import 'package:new_coronavirus/utils/functions.dart';
@@ -193,6 +194,13 @@ class _HomePageState extends State<HomePage> {
                                     HomeCard(
                                       gradient: gradients[i],
                                       regional: regional,
+                                      onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => ProvincialDataPage(
+                                            regional: regional,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   );
                                 },
