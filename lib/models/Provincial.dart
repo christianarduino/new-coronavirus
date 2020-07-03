@@ -3,6 +3,8 @@ class Provincial {
   double lat, lon;
   int totalCases;
 
+  bool get hasCoordinate => lat != null && lon != null;
+
   Provincial.fromJson(Map<String, dynamic> json)
       : name = json['denominazione_provincia'],
         originCode = json['sigla_provincia'],

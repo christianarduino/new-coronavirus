@@ -30,11 +30,11 @@ class _ProvincialDataPageState extends State<ProvincialDataPage> {
   void initState() {
     super.initState();
     regional = widget.regional;
-    initialPosition = CameraPosition(
+    /* initialPosition = CameraPosition(
       target: LatLng(regional.latitude, regional.longitude),
       zoom: 7.2,
       bearing: 10,
-    );
+    ); */
   }
 
   @override
@@ -52,7 +52,7 @@ class _ProvincialDataPageState extends State<ProvincialDataPage> {
           "Dati provinciali - ${widget.regional.name}",
           overflow: TextOverflow.ellipsis,
         ),
-        actions: <Widget>[
+        /* actions: <Widget>[
           IconButton(
             icon: Icon(Icons.map),
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(
@@ -61,7 +61,7 @@ class _ProvincialDataPageState extends State<ProvincialDataPage> {
               ),
             )),
           ),
-        ],
+        ], */
       ),
       body: StoreConnector<AppState, AppState>(
         onInit: (store) {
